@@ -54,13 +54,25 @@ public class PlayerController : MonoBehaviour
 
     private void SetScoreText()
     {
-        scoreText.text = "Score :" + count;
+        scoreText.text = "Score : " + count;
 
         if (count >= 12)
         {
             winText.gameObject.SetActive(true);
+            Destroy(GameObject.FindGameObjectWithTag("Enemy"));
         }
 
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Enemy"))
+        {
+            Destroy(gameObject);
+
+            winText.gameObject.SetActive(true);
+            winText.GetComponent<TextMeshProUGUI>().text = "You Lose!!!";
+        }
     }
 
 
